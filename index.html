@@ -1,0 +1,66 @@
+//Importing Scanner class for user input
+import java.util.Scanner;
+
+//Creating a class for Employee entity
+class Employee {
+  //Declaring attributes of Employee class
+  int id;
+  String name;
+  double salary;
+
+  //Creating a constructor for Employee class
+  public Employee(int id, String name, double salary) {
+    this.id = id;
+    this.name = name;
+    this.salary = salary;
+  }
+
+  //Creating a method to display employee details
+  public void display() {
+    System.out.println("Employee ID: " + id);
+    System.out.println("Employee Name: " + name);
+    System.out.println("Employee Salary: " + salary);
+  }
+}
+
+//Creating a main class
+public class Main {
+  //Main method
+  public static void main(String[] args) {
+    //Creating a Scanner object for user input
+    Scanner sc = new Scanner(System.in);
+
+    //Asking the user how many employees to enter
+    System.out.print("Enter the number of employees: ");
+    int n = sc.nextInt();
+
+    //Creating an array of Employee objects
+    Employee[] employees = new Employee[n];
+
+    //Using a loop to get the data of each employee
+    for (int i = 0; i < n; i++) {
+      //Asking the user to enter the employee id, name and salary
+      System.out.println("Enter the details of employee " + (i + 1) + ":");
+      System.out.print("Enter the employee id: ");
+      int id = sc.nextInt();
+      System.out.print("Enter the employee name: ");
+      String name = sc.next();
+      System.out.print("Enter the employee salary: ");
+      double salary = sc.nextDouble();
+
+      //Creating an Employee object with the given data
+      Employee emp = new Employee(id, name, salary);
+
+      //Storing the Employee object in the array
+      employees[i] = emp;
+    }
+
+    //Using a loop to display the data of each employee
+    System.out.println("\nThe data of employees are:");
+    for (int i = 0; i < n; i++) {
+      //Displaying the details of employee i
+      System.out.println("\nEmployee " + (i + 1) + ":");
+      employees[i].display();
+    }
+  }
+}
