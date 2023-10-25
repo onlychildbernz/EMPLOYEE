@@ -1,66 +1,126 @@
-//Importing Scanner class for user input
-import java.util.Scanner;
-
-//Creating a class for Employee entity
-class Employee {
-  //Declaring attributes of Employee class
-  int id;
-  String name;
-  double salary;
-
-  //Creating a constructor for Employee class
-  public Employee(int id, String name, double salary) {
-    this.id = id;
-    this.name = name;
-    this.salary = salary;
-  }
-
-  //Creating a method to display employee details
-  public void display() {
-    System.out.println("Employee ID: " + id);
-    System.out.println("Employee Name: " + name);
-    System.out.println("Employee Salary: " + salary);
-  }
-}
-
-//Creating a main class
-public class Main {
-  //Main method
-  public static void main(String[] args) {
-    //Creating a Scanner object for user input
-    Scanner sc = new Scanner(System.in);
-
-    //Asking the user how many employees to enter
-    System.out.print("Enter the number of employees: ");
-    int n = sc.nextInt();
-
-    //Creating an array of Employee objects
-    Employee[] employees = new Employee[n];
-
-    //Using a loop to get the data of each employee
-    for (int i = 0; i < n; i++) {
-      //Asking the user to enter the employee id, name and salary
-      System.out.println("Enter the details of employee " + (i + 1) + ":");
-      System.out.print("Enter the employee id: ");
-      int id = sc.nextInt();
-      System.out.print("Enter the employee name: ");
-      String name = sc.next();
-      System.out.print("Enter the employee salary: ");
-      double salary = sc.nextDouble();
-
-      //Creating an Employee object with the given data
-      Employee emp = new Employee(id, name, salary);
-
-      //Storing the Employee object in the array
-      employees[i] = emp;
+<html>
+<head>
+  <style>
+    /* CSS code for styling the table */
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: auto;
     }
 
-    //Using a loop to display the data of each employee
-    System.out.println("\nThe data of employees are:");
-    for (int i = 0; i < n; i++) {
-      //Displaying the details of employee i
-      System.out.println("\nEmployee " + (i + 1) + ":");
-      employees[i].display();
+    th, td {
+      border: 1px solid black;
+      padding: 10px;
+      text-align: left;
     }
-  }
-}
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Employee Data</h1>
+  <form>
+    <!-- Form elements for entering employee data -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br>
+    <label for="id">Employee ID:</label>
+    <input type="number" id="id" name="id"><br>
+    <label for="designation">Designation:</label>
+    <input type="text" id="designation" name="designation"><br>
+    <label for="experience">Experience:</label>
+    <input type="number" id="experience" name="experience"><br>
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age"><br>
+    <button type="button" onclick="addEmployee()">Add Employee</button>
+  </form>
+
+  <script>
+    // JavaScript code for adding employee data to the table
+    // Creating an array of employee objects
+    var employees = [];
+
+    // Creating a function to add an employee object to the array
+    function addEmployee() {
+      // Getting the values from the form elements
+      var name = document.getElementById("name").value;
+      var id = document.getElementById("id").value;
+      var designation = document.getElementById("designation").value;
+      var experience = document.getElementById("experience").value;
+      var age = document.getElementById("age").value;
+
+      // Creating an employee object with the values
+      var employee = {
+        name: name,
+        id: id,
+        designation: designation,
+        experience: experience,
+        age: age
+      };
+
+      // Pushing the employee object to the array
+      employees.push(employee);
+
+      // Calling the function to display the table
+      displayTable();
+    }
+
+    // Creating a function to display the table with employee data
+    function displayTable() {
+      // Getting the table element by id
+      var table = document.getElementById("table");
+
+      // Checking if the table exists or not
+      if (table) {
+        // If the table exists, remove it from the body
+        document.body.removeChild(table);
+      }
+
+      // Creating a new table element
+      table = document.createElement("table");
+      // Setting the id attribute of the table element
+      table.setAttribute("id", "table");
+
+      // Creating a table header row element
+      var header = document.createElement("tr");
+
+      // Creating and appending table header cells to the header row
+      var headers = ["Name", "Employee ID", "Designation", "Experience", "Age"];
+      for (var i = 0; i < headers.length; i++) {
+        var th = document.createElement("th");
+        th.innerHTML = headers[i];
+        header.appendChild(th);
+      }
+      
+      // Appending the header row to the table
+      table.appendChild(header);
+
+      // Creating and appending table data rows to the table
+      for (var i = 0; i < employees.length; i++) {
+        // Creating a table data row element
+        var tr = document.createElement("tr");
+
+        // Creating and appending table data cells to the data row
+        var keys = ["name", "id", "designation", "experience", "age"];
+        for (var j = 0; j < keys.length; j++) {
+          var td = document.createElement("td");
+          td.innerHTML = employees[i][keys[j]];
+          tr.appendChild(td);
+        }
+
+        // Appending the data row to the table
+        table.appendChild(tr);
+      }
+
+      // Appending the table to the body
+      document.body.appendChild(table);
+    }
+  </script>
+</body>
+</html>
